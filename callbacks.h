@@ -3,7 +3,6 @@
 #include <girara/macros.h>
 #include "types.h"
 
-
 void realize_cb(GtkWidget* widget, nioc_t* nioc);
 
 /* This function is called when the PLAY button is clicked */

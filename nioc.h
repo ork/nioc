@@ -11,23 +11,21 @@
 
 #include "types.h"
 
-struct nioc_s
-{
-  struct
-  {
-    girara_session_t* session; /**< girara interface session */
-    GtkWidget* renderer; /**< Widget to show the rendered graphic media */
-  } ui;
+struct nioc_s {
+    struct
+        {
+        girara_session_t* session; /**< girara interface session */
+        GtkWidget* renderer; /**< Widget to show the rendered graphic media */
+    } ui;
 
-  struct
-  {
-    GstElement* playbin2; /**< Our one and only pipeline */
-    GstState state; /**< Current state of the pipeline */
-    GstStateChangeReturn ret;
-    GstBus* bus; /**< Gstreamer bus */
-    gint64 duration; /**< Duration of the clip, in nanoseconds */
-  } media;
-
+    struct
+        {
+        GstElement* playbin2; /**< Our one and only pipeline */
+        GstState state; /**< Current state of the pipeline */
+        GstStateChangeReturn ret;
+        GstBus* bus; /**< Gstreamer bus */
+        gint64 duration; /**< Duration of the clip, in nanoseconds */
+    } media;
 };
 
 /**
