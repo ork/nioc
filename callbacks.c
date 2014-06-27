@@ -2,6 +2,7 @@
 #include <gst/interfaces/xoverlay.h>
 #include <gdk/gdkx.h>
 #include "callbacks.h"
+#include "commands.h"
 #include "nioc.h"
 
 void realize_cb(GtkWidget* widget, nioc_t* nioc)
@@ -22,31 +23,6 @@ void realize_cb(GtkWidget* widget, nioc_t* nioc)
 #endif
     /* Pass it to playbin2, which implements XOverlay and will forward it to the video sink */
     gst_x_overlay_set_window_handle(GST_X_OVERLAY(nioc->media.playbin2), window_handle);
-}
-
-/* This function is called when the PLAY button is clicked */
-void play_cb(GtkButton* GIRARA_UNUSED(button), nioc_t* nioc)
-{
-    gst_element_set_state(nioc->media.playbin2, GST_STATE_PLAYING);
-}
-
-/* This function is called when the PAUSE button is clicked */
-void pause_cb(GtkButton* GIRARA_UNUSED(button), nioc_t* nioc)
-{
-    gst_element_set_state(nioc->media.playbin2, GST_STATE_PAUSED);
-}
-
-/* This function is called when the STOP button is clicked */
-void stop_cb(GtkButton* GIRARA_UNUSED(button), nioc_t* nioc)
-{
-    gst_element_set_state(nioc->media.playbin2, GST_STATE_READY);
-}
-
-/* This function is called when the main window is closed */
-void delete_event_cb(GtkWidget* GIRARA_UNUSED(widget), GdkEvent* GIRARA_UNUSED(event), nioc_t* nioc)
-{
-    stop_cb(NULL, nioc);
-    gtk_main_quit();
 }
 
 /* This function is called everytime the video window needs to be redrawn (due to damage/exposure,
