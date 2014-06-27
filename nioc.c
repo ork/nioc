@@ -57,7 +57,7 @@ nioc_init(nioc_t* nioc)
     nioc->ui.renderer = gtk_drawing_area_new();
     gtk_widget_set_double_buffered(nioc->ui.renderer, FALSE);
     g_signal_connect(nioc->ui.renderer, "realize", G_CALLBACK(realize_cb), nioc);
-    g_signal_connect(nioc->ui.renderer, "expose_event", G_CALLBACK(expose_cb), nioc);
+    g_signal_connect(nioc->ui.renderer, "draw", G_CALLBACK(draw_cb), nioc);
     girara_set_view(nioc->ui.session, nioc->ui.renderer);
 
     /* Commands */

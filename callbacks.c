@@ -52,21 +52,18 @@ void delete_event_cb(GtkWidget* GIRARA_UNUSED(widget), GdkEvent* GIRARA_UNUSED(e
 /* This function is called everytime the video window needs to be redrawn (due to damage/exposure,
  * rescaling, etc). GStreamer takes care of this in the PAUSED and PLAYING states, otherwise,
  * we simply draw a black rectangle to avoid garbage showing up. */
-gboolean expose_cb(GtkWidget* widget, GdkEventExpose* GIRARA_UNUSED(event), nioc_t* nioc)
+gboolean draw_cb(GtkWidget* widget, cairo_t *cr, nioc_t* nioc)
 {
     if (nioc->media.state < GST_STATE_PAUSED) {
         GtkAllocation allocation;
         GdkWindow* window = gtk_widget_get_window(widget);
-        cairo_t* cr;
 
         /* Cairo is a 2D graphics library which we use here to clean the video window.
      * It is used by GStreamer for other reasons, so it will always be available to us. */
         gtk_widget_get_allocation(widget, &allocation);
-        cr = gdk_cairo_create(window);
         cairo_set_source_rgb(cr, 0, 0, 0);
         cairo_rectangle(cr, 0, 0, allocation.width, allocation.height);
         cairo_fill(cr);
-        cairo_destroy(cr);
     }
 
     return FALSE;
