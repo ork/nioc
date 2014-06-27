@@ -22,6 +22,9 @@ bool cmd_info(girara_session_t* session, girara_list_t* argument_list);
  */
 bool cmd_open(girara_session_t* session, girara_list_t* argument_list);
 
+bool cmd_play_pause(girara_session_t* session, girara_list_t* argument_list);
+bool cmd_stop(girara_session_t* session, girara_list_t* argument_list);
+
 /**
  * Close nioc
  *

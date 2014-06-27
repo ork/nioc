@@ -16,32 +16,58 @@
 bool
 cmd_open(girara_session_t* session, girara_list_t* argument_list)
 {
-  g_return_val_if_fail(session != NULL, false);
-  g_return_val_if_fail(session->global.data != NULL, false);
-  nioc_t* nioc = session->global.data;
+    g_return_val_if_fail(session != NULL, false);
+    g_return_val_if_fail(session->global.data != NULL, false);
+    nioc_t* nioc = session->global.data;
 
-  const int argc = girara_list_size(argument_list);
-  if (argc > 2) {
-    girara_notify(session, GIRARA_ERROR, _("Too many arguments."));
-    return false;
-  } else if (argc >= 1) {
-    gst_element_set_state(nioc->media.playbin2, GST_STATE_READY);
+    const int argc = girara_list_size(argument_list);
+    if (argc > 2) {
+        girara_notify(session, GIRARA_ERROR, _("Too many arguments."));
+        return false;
+    } else if (argc >= 1) {
+        gst_element_set_state(nioc->media.playbin2, GST_STATE_READY);
 
-    g_object_set(nioc->media.playbin2, "uri",
-                 girara_list_nth(argument_list, 0), NULL);
-    gst_element_set_state(nioc->media.playbin2, GST_STATE_PLAYING);
-  } else {
-    girara_notify(session, GIRARA_ERROR, _("No arguments given."));
-    return false;
-  }
+        g_object_set(nioc->media.playbin2, "uri",
+                     girara_list_nth(argument_list, 0), NULL);
+        gst_element_set_state(nioc->media.playbin2, GST_STATE_PLAYING);
+    } else {
+        girara_notify(session, GIRARA_ERROR, _("No arguments given."));
+        return false;
+    }
 
-  return true;
+    return true;
+}
+
+bool
+cmd_play_pause(girara_session_t* session, girara_list_t* GIRARA_UNUSED(argument_list))
+{
+    g_return_val_if_fail(session != NULL, false);
+    g_return_val_if_fail(session->global.data != NULL, false);
+    nioc_t* nioc = session->global.data;
+    bool ret;
+
+    if (GST_STATE(nioc->media.playbin2) == GST_STATE_PAUSED)
+        ret = (gst_element_set_state(nioc->media.playbin2, GST_STATE_PLAYING) != GST_STATE_CHANGE_FAILURE);
+    else
+        ret = (gst_element_set_state(nioc->media.playbin2, GST_STATE_PAUSED) != GST_STATE_CHANGE_FAILURE);
+
+    return ret;
+}
+
+bool
+cmd_stop(girara_session_t* session, girara_list_t* GIRARA_UNUSED(argument_list))
+{
+    g_return_val_if_fail(session != NULL, false);
+    g_return_val_if_fail(session->global.data != NULL, false);
+    nioc_t* nioc = session->global.data;
+
+    return gst_element_set_state(nioc->media.playbin2, GST_STATE_READY) != GST_STATE_CHANGE_FAILURE;
 }
 
 bool
 cmd_quit(girara_session_t* session, girara_list_t* GIRARA_UNUSED(argument_list))
 {
-  //sc_quit(session, NULL, NULL, 0);
+    //sc_quit(session, NULL, NULL, 0);
 
-  return true;
+    return true;
 }

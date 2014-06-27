@@ -60,7 +60,12 @@ nioc_init(nioc_t* nioc)
     g_signal_connect(nioc->ui.renderer, "expose_event", G_CALLBACK(expose_cb), nioc);
 
     girara_set_view(nioc->ui.session, nioc->ui.renderer);
+
+    /* Commands */
     girara_inputbar_command_add(nioc->ui.session, "open", "o", cmd_open, NULL, _("Open medium"));
+    girara_inputbar_command_add(nioc->ui.session, "play-pause", "p", cmd_play_pause, NULL, _("Play/Pause medium"));
+    girara_inputbar_command_add(nioc->ui.session, "stop", "s", cmd_stop, NULL, _("Stop medium"));
+
     g_object_set(nioc->media.playbin2, "uri", "http://docs.gstreamer.com/media/sintel_trailer-480p.webm", NULL);
     gst_element_set_state(nioc->media.playbin2, GST_STATE_PLAYING);
 
