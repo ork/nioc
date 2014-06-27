@@ -62,6 +62,13 @@ cmd_play_pause(girara_session_t* session, girara_list_t* GIRARA_UNUSED(argument_
 }
 
 bool
+sc_play_pause(girara_session_t* session, girara_argument_t* GIRARA_UNUSED(argument),
+          girara_event_t* GIRARA_UNUSED(event), unsigned int GIRARA_UNUSED(t))
+{
+  return cmd_play_pause(session, NULL);
+}
+
+bool
 cmd_stop(girara_session_t* session, girara_list_t* GIRARA_UNUSED(argument_list))
 {
     g_return_val_if_fail(session != NULL, false);
@@ -70,6 +77,14 @@ cmd_stop(girara_session_t* session, girara_list_t* GIRARA_UNUSED(argument_list))
 
     return gst_element_set_state(nioc->media.playbin2, GST_STATE_READY) != GST_STATE_CHANGE_FAILURE;
 }
+
+bool
+sc_stop(girara_session_t* session, girara_argument_t* GIRARA_UNUSED(argument),
+          girara_event_t* GIRARA_UNUSED(event), unsigned int GIRARA_UNUSED(t))
+{
+  return cmd_stop(session, NULL);
+}
+
 
 bool
 cmd_quit(girara_session_t* session, girara_list_t* GIRARA_UNUSED(argument_list))

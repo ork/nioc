@@ -32,6 +32,13 @@ bool cmd_open(girara_session_t* session, girara_list_t* argument_list);
 bool cmd_play_pause(girara_session_t* session, girara_list_t* argument_list);
 
 /**
+ * Pause or Resume playback of a medium
+ *
+ */
+bool sc_play_pause(girara_session_t* session, girara_argument_t* argument,
+    girara_event_t* event, unsigned int t);
+
+/**
  * Stop playback of a medium
  *
  * @param session The used girara session
@@ -39,6 +46,13 @@ bool cmd_play_pause(girara_session_t* session, girara_list_t* argument_list);
  * @return true if no error occured
  */
 bool cmd_stop(girara_session_t* session, girara_list_t* argument_list);
+
+/**
+ * Stop playback of a medium
+ *
+ */
+bool sc_stop(girara_session_t* session, girara_argument_t* argument,
+    girara_event_t* event, unsigned int t);
 
 /**
  * Close nioc

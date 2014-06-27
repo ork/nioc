@@ -1,6 +1,8 @@
 #include <gst/gst.h>
 #include <gst/interfaces/xoverlay.h>
 #include <gdk/gdkx.h>
+#include <glib/gi18n.h>
+#include <girara/session.h>
 #include "callbacks.h"
 #include "commands.h"
 #include "nioc.h"
@@ -11,7 +13,8 @@ void realize_cb(GtkWidget* widget, nioc_t* nioc)
     guintptr window_handle;
 
     if (!gdk_window_ensure_native(window))
-        g_error("Couldn't create native window needed for GstXOverlay!");
+        girara_notify(nioc->ui.session, GIRARA_ERROR,
+            _("Couldn't create native window needed for GstXOverlay!"));
 
 /* Retrieve window handler from GDK */
 #if defined(GDK_WINDOWING_WIN32)

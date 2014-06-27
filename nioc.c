@@ -4,7 +4,9 @@
 #include <girara/session.h>
 #include <girara/utils.h>
 #include <girara/commands.h>
+#include <girara/config.h>
 #include <girara/shortcuts.h>
+#include <girara/settings.h>
 #include "commands.h"
 #include "callbacks.h"
 
@@ -66,9 +68,12 @@ nioc_init(nioc_t* nioc)
     girara_inputbar_command_add(nioc->ui.session, "stop", "s", cmd_stop, NULL, _("Stop medium"));
 
     /* Shortcuts */
-    girara_shortcut_add(nioc->ui.session, 0, GDK_KEY_p, NULL, cmd_play_pause, 0, 0, NULL);
-    girara_shortcut_add(nioc->ui.session, 0, GDK_KEY_s, NULL, cmd_stop, 0, 0, NULL);
+    girara_shortcut_add(nioc->ui.session, 0, GDK_KEY_p, NULL, sc_play_pause, 0, 0, NULL);
+    girara_shortcut_add(nioc->ui.session, 0, GDK_KEY_s, NULL, sc_stop, 0, 0, NULL);
     girara_shortcut_add(nioc->ui.session, 0, GDK_KEY_q, NULL, girara_sc_quit, 0, 0, NULL);
+
+    /* Settings */
+    girara_setting_set(nioc->ui.session, "window-icon", "totem");
 
     /* signals */
     //g_signal_connect(G_OBJECT(nioc->ui.session->gtk.window), "destroy", G_CALLBACK(cb_destroy), nioc);
