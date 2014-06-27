@@ -71,9 +71,6 @@ nioc_init(nioc_t* nioc)
     girara_shortcut_add(nioc->ui.session, 0, GDK_KEY_s, NULL, cmd_stop, 0, 0, NULL);
     girara_shortcut_add(nioc->ui.session, 0, GDK_KEY_q, NULL, girara_sc_quit, 0, 0, NULL);
 
-    g_object_set(nioc->media.playbin2, "uri", "http://docs.gstreamer.com/media/sintel_trailer-480p.webm", NULL);
-    gst_element_set_state(nioc->media.playbin2, GST_STATE_PLAYING);
-
     /* signals */
     //g_signal_connect(G_OBJECT(nioc->ui.session->gtk.window), "destroy", G_CALLBACK(cb_destroy), nioc);
 
