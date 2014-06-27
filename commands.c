@@ -46,10 +46,15 @@ cmd_play_pause(girara_session_t* session, girara_list_t* GIRARA_UNUSED(argument_
     nioc_t* nioc = session->global.data;
     bool ret;
 
-    if (GST_STATE(nioc->media.playbin2) == GST_STATE_PAUSED)
+    switch (GST_STATE(nioc->media.playbin2)) {
+    case GST_STATE_PAUSED:
+    case GST_STATE_READY:
         ret = (gst_element_set_state(nioc->media.playbin2, GST_STATE_PLAYING) != GST_STATE_CHANGE_FAILURE);
-    else
+        break;
+    default:
         ret = (gst_element_set_state(nioc->media.playbin2, GST_STATE_PAUSED) != GST_STATE_CHANGE_FAILURE);
+        break;
+    }
 
     return ret;
 }
