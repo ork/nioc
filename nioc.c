@@ -53,13 +53,11 @@ nioc_init(nioc_t* nioc)
         goto error_free;
     }
 
-    /* page view */
-
+    /* Drawing area */
     nioc->ui.renderer = gtk_drawing_area_new();
     gtk_widget_set_double_buffered(nioc->ui.renderer, FALSE);
     g_signal_connect(nioc->ui.renderer, "realize", G_CALLBACK(realize_cb), nioc);
     g_signal_connect(nioc->ui.renderer, "expose_event", G_CALLBACK(expose_cb), nioc);
-
     girara_set_view(nioc->ui.session, nioc->ui.renderer);
 
     /* Commands */
@@ -67,6 +65,7 @@ nioc_init(nioc_t* nioc)
     girara_inputbar_command_add(nioc->ui.session, "play-pause", "p", cmd_play_pause, NULL, _("Play/Pause medium"));
     girara_inputbar_command_add(nioc->ui.session, "stop", "s", cmd_stop, NULL, _("Stop medium"));
 
+    /* Shortcuts */
     girara_shortcut_add(nioc->ui.session, 0, GDK_KEY_p, NULL, cmd_play_pause, 0, 0, NULL);
     girara_shortcut_add(nioc->ui.session, 0, GDK_KEY_s, NULL, cmd_stop, 0, 0, NULL);
     girara_shortcut_add(nioc->ui.session, 0, GDK_KEY_q, NULL, girara_sc_quit, 0, 0, NULL);

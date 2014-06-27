@@ -29,7 +29,9 @@ cmd_open(girara_session_t* session, girara_list_t* argument_list)
 
         g_object_set(nioc->media.playbin2, "uri",
                      girara_list_nth(argument_list, 0), NULL);
-        gst_element_set_state(nioc->media.playbin2, GST_STATE_PLAYING);
+        if (gst_element_set_state(nioc->media.playbin2, GST_STATE_PLAYING) == GST_STATE_CHANGE_FAILURE) {
+            girara_notify(session, GIRARA_ERROR, _("Could not open URI."));
+        }
     } else {
         girara_notify(session, GIRARA_ERROR, _("No arguments given."));
         return false;
@@ -72,6 +74,7 @@ cmd_stop(girara_session_t* session, girara_list_t* GIRARA_UNUSED(argument_list))
 bool
 cmd_quit(girara_session_t* session, girara_list_t* GIRARA_UNUSED(argument_list))
 {
+    cmd_stop(session, NULL);
     //sc_quit(session, NULL, NULL, 0);
 
     return true;
