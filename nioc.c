@@ -4,6 +4,7 @@
 #include <girara/session.h>
 #include <girara/utils.h>
 #include <girara/commands.h>
+#include <girara/shortcuts.h>
 #include "commands.h"
 #include "callbacks.h"
 
@@ -65,6 +66,10 @@ nioc_init(nioc_t* nioc)
     girara_inputbar_command_add(nioc->ui.session, "open", "o", cmd_open, NULL, _("Open medium"));
     girara_inputbar_command_add(nioc->ui.session, "play-pause", "p", cmd_play_pause, NULL, _("Play/Pause medium"));
     girara_inputbar_command_add(nioc->ui.session, "stop", "s", cmd_stop, NULL, _("Stop medium"));
+
+    girara_shortcut_add(nioc->ui.session, 0, GDK_KEY_p, NULL, cmd_play_pause, 0, 0, NULL);
+    girara_shortcut_add(nioc->ui.session, 0, GDK_KEY_s, NULL, cmd_stop, 0, 0, NULL);
+    girara_shortcut_add(nioc->ui.session, 0, GDK_KEY_q, NULL, girara_sc_quit, 0, 0, NULL);
 
     g_object_set(nioc->media.playbin2, "uri", "http://docs.gstreamer.com/media/sintel_trailer-480p.webm", NULL);
     gst_element_set_state(nioc->media.playbin2, GST_STATE_PLAYING);
