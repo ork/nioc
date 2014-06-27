@@ -56,10 +56,9 @@ gboolean draw_cb(GtkWidget* widget, cairo_t *cr, nioc_t* nioc)
 {
     if (nioc->media.state < GST_STATE_PAUSED) {
         GtkAllocation allocation;
-        GdkWindow* window = gtk_widget_get_window(widget);
 
         /* Cairo is a 2D graphics library which we use here to clean the video window.
-     * It is used by GStreamer for other reasons, so it will always be available to us. */
+         * It is used by GStreamer for other reasons, so it will always be available to us. */
         gtk_widget_get_allocation(widget, &allocation);
         cairo_set_source_rgb(cr, 0, 0, 0);
         cairo_rectangle(cr, 0, 0, allocation.width, allocation.height);
