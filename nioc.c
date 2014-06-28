@@ -58,14 +58,12 @@ nioc_init(nioc_t* nioc)
     /* Drawing area */
     nioc->ui.renderer = gtk_drawing_area_new();
     gtk_widget_set_double_buffered(nioc->ui.renderer, FALSE);
-    g_signal_connect(nioc->ui.renderer, "realize", G_CALLBACK(realize_cb), nioc);
-    g_signal_connect(nioc->ui.renderer, "draw", G_CALLBACK(draw_cb), nioc);
     girara_set_view(nioc->ui.session, nioc->ui.renderer);
 
     /* Commands */
     girara_inputbar_command_add(nioc->ui.session, "open", "o", cmd_open, NULL, _("Open medium"));
-    girara_inputbar_command_add(nioc->ui.session, "play-pause", "p", cmd_play_pause, NULL, _("Play/Pause medium"));
-    girara_inputbar_command_add(nioc->ui.session, "stop", "s", cmd_stop, NULL, _("Stop medium"));
+    girara_inputbar_command_add(nioc->ui.session, "play-pause", "p", cmd_play_pause, NULL, _("Start/Pause/Resume playback"));
+    girara_inputbar_command_add(nioc->ui.session, "stop", "s", cmd_stop, NULL, _("Stop playback"));
 
     /* Shortcuts */
     girara_shortcut_add(nioc->ui.session, 0, GDK_KEY_p, NULL, sc_play_pause, 0, 0, NULL);
@@ -76,6 +74,8 @@ nioc_init(nioc_t* nioc)
     girara_setting_set(nioc->ui.session, "window-icon", "totem");
 
     /* signals */
+    g_signal_connect(nioc->ui.renderer, "realize", G_CALLBACK(realize_cb), nioc);
+    g_signal_connect(nioc->ui.renderer, "draw", G_CALLBACK(draw_cb), nioc);
     //g_signal_connect(G_OBJECT(nioc->ui.session->gtk.window), "destroy", G_CALLBACK(cb_destroy), nioc);
 
     return true;
