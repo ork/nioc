@@ -63,10 +63,12 @@ nioc_init(nioc_t* nioc)
     girara_inputbar_command_add(nioc->ui.session, "open", "o", cmd_open, NULL, _("Open medium"));
     girara_inputbar_command_add(nioc->ui.session, "play-pause", "p", cmd_play_pause, NULL, _("Start/Pause/Resume playback"));
     girara_inputbar_command_add(nioc->ui.session, "stop", "s", cmd_stop, NULL, _("Stop playback"));
+    girara_inputbar_command_add(nioc->ui.session, "mute", "m", cmd_stop, NULL, _("(Un)Mute playback"));
 
     /* Shortcuts */
     girara_shortcut_add(nioc->ui.session, 0, GDK_KEY_p, NULL, sc_play_pause, 0, 0, NULL);
     girara_shortcut_add(nioc->ui.session, 0, GDK_KEY_s, NULL, sc_stop, 0, 0, NULL);
+    girara_shortcut_add(nioc->ui.session, 0, GDK_KEY_m, NULL, sc_mute, 0, 0, NULL);
     girara_shortcut_add(nioc->ui.session, 0, GDK_KEY_q, NULL, girara_sc_quit, 0, 0, NULL);
 
     /* Settings */

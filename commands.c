@@ -85,6 +85,27 @@ sc_stop(girara_session_t* session, girara_argument_t* GIRARA_UNUSED(argument),
   return cmd_stop(session, NULL);
 }
 
+bool
+cmd_mute(girara_session_t* session, girara_list_t* GIRARA_UNUSED(argument_list))
+{
+    g_return_val_if_fail(session != NULL, false);
+    g_return_val_if_fail(session->global.data != NULL, false);
+    nioc_t* nioc = session->global.data;
+    gboolean mute;
+
+    g_object_get(nioc->media.playbin2, "mute", &mute, NULL);
+    g_object_set(nioc->media.playbin2, "mute", !mute, NULL);
+
+    return true;
+}
+
+bool
+sc_mute(girara_session_t* session, girara_argument_t* GIRARA_UNUSED(argument),
+          girara_event_t* GIRARA_UNUSED(event), unsigned int GIRARA_UNUSED(t))
+{
+  girara_notify(session, GIRARA_INFO, _("Volume is now muted."));
+  return cmd_mute(session, NULL);
+}
 
 bool
 cmd_quit(girara_session_t* session, girara_list_t* GIRARA_UNUSED(argument_list))

@@ -55,6 +55,22 @@ bool sc_stop(girara_session_t* session, girara_argument_t* argument,
     girara_event_t* event, unsigned int t);
 
 /**
+ * Toggle mute volume
+ *
+ * @param session The used girara session
+ * @param argument_list List of passed arguments
+ * @return true if no error occured
+ */
+bool cmd_mute(girara_session_t* session, girara_list_t* argument_list);
+
+/**
+ * Toggle mute volume
+ *
+ */
+bool sc_mute(girara_session_t* session, girara_argument_t* argument,
+    girara_event_t* event, unsigned int t);
+
+/**
  * Close nioc
  *
  * @param session The used girara session
