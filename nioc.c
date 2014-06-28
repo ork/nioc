@@ -58,7 +58,6 @@ nioc_init(nioc_t* nioc)
     /* Drawing area */
     nioc->ui.renderer = gtk_drawing_area_new();
     gtk_widget_set_double_buffered(nioc->ui.renderer, FALSE);
-    girara_set_view(nioc->ui.session, nioc->ui.renderer);
 
     /* Commands */
     girara_inputbar_command_add(nioc->ui.session, "open", "o", cmd_open, NULL, _("Open medium"));
@@ -77,6 +76,8 @@ nioc_init(nioc_t* nioc)
     g_signal_connect(nioc->ui.renderer, "realize", G_CALLBACK(realize_cb), nioc);
     g_signal_connect(nioc->ui.renderer, "draw", G_CALLBACK(draw_cb), nioc);
     //g_signal_connect(G_OBJECT(nioc->ui.session->gtk.window), "destroy", G_CALLBACK(cb_destroy), nioc);
+
+    girara_set_view(nioc->ui.session, nioc->ui.renderer);
 
     return true;
 
