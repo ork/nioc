@@ -25,11 +25,11 @@ cmd_open(girara_session_t* session, girara_list_t* argument_list)
         girara_notify(session, GIRARA_ERROR, _("Too many arguments."));
         return false;
     } else if (argc >= 1) {
-        gst_element_set_state(nioc->media.playbin2, GST_STATE_READY);
+        gst_element_set_state(nioc->media.playbin, GST_STATE_READY);
 
-        g_object_set(nioc->media.playbin2, "uri",
+        g_object_set(nioc->media.playbin, "uri",
                      girara_list_nth(argument_list, 0), NULL);
-        if (gst_element_set_state(nioc->media.playbin2, GST_STATE_PLAYING) == GST_STATE_CHANGE_FAILURE) {
+        if (gst_element_set_state(nioc->media.playbin, GST_STATE_PLAYING) == GST_STATE_CHANGE_FAILURE) {
             girara_notify(session, GIRARA_ERROR, _("Could not open URI."));
         }
     } else {
@@ -48,13 +48,13 @@ cmd_play_pause(girara_session_t* session, girara_list_t* GIRARA_UNUSED(argument_
     nioc_t* nioc = session->global.data;
     bool ret;
 
-    switch (GST_STATE(nioc->media.playbin2)) {
+    switch (GST_STATE(nioc->media.playbin)) {
     case GST_STATE_PAUSED:
     case GST_STATE_READY:
-        ret = (gst_element_set_state(nioc->media.playbin2, GST_STATE_PLAYING) != GST_STATE_CHANGE_FAILURE);
+        ret = (gst_element_set_state(nioc->media.playbin, GST_STATE_PLAYING) != GST_STATE_CHANGE_FAILURE);
         break;
     default:
-        ret = (gst_element_set_state(nioc->media.playbin2, GST_STATE_PAUSED) != GST_STATE_CHANGE_FAILURE);
+        ret = (gst_element_set_state(nioc->media.playbin, GST_STATE_PAUSED) != GST_STATE_CHANGE_FAILURE);
         break;
     }
 
@@ -75,7 +75,7 @@ cmd_stop(girara_session_t* session, girara_list_t* GIRARA_UNUSED(argument_list))
     g_return_val_if_fail(session->global.data != NULL, false);
     nioc_t* nioc = session->global.data;
 
-    return gst_element_set_state(nioc->media.playbin2, GST_STATE_READY) != GST_STATE_CHANGE_FAILURE;
+    return gst_element_set_state(nioc->media.playbin, GST_STATE_READY) != GST_STATE_CHANGE_FAILURE;
 }
 
 bool
@@ -93,8 +93,8 @@ cmd_mute(girara_session_t* session, girara_list_t* GIRARA_UNUSED(argument_list))
     nioc_t* nioc = session->global.data;
     gboolean mute;
 
-    g_object_get(nioc->media.playbin2, "mute", &mute, NULL);
-    g_object_set(nioc->media.playbin2, "mute", !mute, NULL);
+    g_object_get(nioc->media.playbin, "mute", &mute, NULL);
+    g_object_set(nioc->media.playbin, "mute", !mute, NULL);
 
     return true;
 }

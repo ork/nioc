@@ -25,7 +25,7 @@ void realize_cb(GtkWidget* widget, nioc_t* nioc)
     window_handle = GDK_WINDOW_XID(window);
 #endif
     /* Pass it to playbin2, which implements XOverlay and will forward it to the video sink */
-    gst_x_overlay_set_window_handle(GST_X_OVERLAY(nioc->media.playbin2), window_handle);
+    gst_x_overlay_set_window_handle(GST_X_OVERLAY(nioc->media.playbin), window_handle);
 }
 
 /* This function is called everytime the video window needs to be redrawn (due to damage/exposure,

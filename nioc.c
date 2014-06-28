@@ -25,9 +25,9 @@ nioc_create(void)
 
     /* Media */
     nioc->media.duration = GST_CLOCK_TIME_NONE;
-    nioc->media.playbin2 = gst_element_factory_make("playbin2", "playbin2");
+    nioc->media.playbin = gst_element_factory_make("playbin2", "playbin");
 
-    if (nioc->media.playbin2 == NULL) {
+    if (nioc->media.playbin == NULL) {
         girara_error("Could not initialize gstreamer.");
         goto error_out;
     }
@@ -98,6 +98,8 @@ nioc_free(nioc_t* nioc)
     if (nioc->ui.session != NULL) {
         girara_session_destroy(nioc->ui.session);
     }
+
+    gst_element_set_state(nioc->media.playbin, GST_STATE_VOID_PENDING);
 
     g_free(nioc);
 }

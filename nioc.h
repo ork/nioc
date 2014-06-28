@@ -20,9 +20,8 @@ struct nioc_s {
 
     struct
         {
-        GstElement* playbin2; /**< Our one and only pipeline */
+        GstElement* playbin; /**< Our one and only pipeline */
         GstState state; /**< Current state of the pipeline */
-        GstStateChangeReturn ret;
         GstBus* bus; /**< Gstreamer bus */
         gint64 duration; /**< Duration of the clip, in nanoseconds */
     } media;
