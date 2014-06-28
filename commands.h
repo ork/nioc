@@ -36,7 +36,7 @@ bool cmd_play_pause(girara_session_t* session, girara_list_t* argument_list);
  *
  */
 bool sc_play_pause(girara_session_t* session, girara_argument_t* argument,
-    girara_event_t* event, unsigned int t);
+                   girara_event_t* event, unsigned int t);
 
 /**
  * Stop playback of a medium
@@ -52,7 +52,7 @@ bool cmd_stop(girara_session_t* session, girara_list_t* argument_list);
  *
  */
 bool sc_stop(girara_session_t* session, girara_argument_t* argument,
-    girara_event_t* event, unsigned int t);
+             girara_event_t* event, unsigned int t);
 
 /**
  * Toggle mute volume
@@ -68,7 +68,7 @@ bool cmd_mute(girara_session_t* session, girara_list_t* argument_list);
  *
  */
 bool sc_mute(girara_session_t* session, girara_argument_t* argument,
-    girara_event_t* event, unsigned int t);
+             girara_event_t* event, unsigned int t);
 
 /**
  * Close nioc

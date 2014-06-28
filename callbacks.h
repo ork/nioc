@@ -20,4 +20,4 @@ void delete_event_cb(GtkWidget* widget, GdkEvent* event, nioc_t* nioc);
 /* This function is called everytime the video window needs to be redrawn (due to damage/exposure,
  * rescaling, etc). GStreamer takes care of this in the PAUSED and PLAYING states, otherwise,
  * we simply draw a black rectangle to avoid garbage showing up. */
-gboolean draw_cb(GtkWidget* widget, cairo_t *cr, nioc_t* nioc);
+gboolean draw_cb(GtkWidget* widget, cairo_t* cr, nioc_t* nioc);

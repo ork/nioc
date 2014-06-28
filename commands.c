@@ -63,9 +63,9 @@ cmd_play_pause(girara_session_t* session, girara_list_t* GIRARA_UNUSED(argument_
 
 bool
 sc_play_pause(girara_session_t* session, girara_argument_t* GIRARA_UNUSED(argument),
-          girara_event_t* GIRARA_UNUSED(event), unsigned int GIRARA_UNUSED(t))
+              girara_event_t* GIRARA_UNUSED(event), unsigned int GIRARA_UNUSED(t))
 {
-  return cmd_play_pause(session, NULL);
+    return cmd_play_pause(session, NULL);
 }
 
 bool
@@ -80,9 +80,9 @@ cmd_stop(girara_session_t* session, girara_list_t* GIRARA_UNUSED(argument_list))
 
 bool
 sc_stop(girara_session_t* session, girara_argument_t* GIRARA_UNUSED(argument),
-          girara_event_t* GIRARA_UNUSED(event), unsigned int GIRARA_UNUSED(t))
+        girara_event_t* GIRARA_UNUSED(event), unsigned int GIRARA_UNUSED(t))
 {
-  return cmd_stop(session, NULL);
+    return cmd_stop(session, NULL);
 }
 
 bool
@@ -101,10 +101,9 @@ cmd_mute(girara_session_t* session, girara_list_t* GIRARA_UNUSED(argument_list))
 
 bool
 sc_mute(girara_session_t* session, girara_argument_t* GIRARA_UNUSED(argument),
-          girara_event_t* GIRARA_UNUSED(event), unsigned int GIRARA_UNUSED(t))
+        girara_event_t* GIRARA_UNUSED(event), unsigned int GIRARA_UNUSED(t))
 {
-  girara_notify(session, GIRARA_INFO, _("Volume is now muted."));
-  return cmd_mute(session, NULL);
+    return cmd_mute(session, NULL);
 }
 
 bool
