@@ -22,6 +22,7 @@ struct nioc_s {
         {
         GstElement* playbin; /**< Our one and only pipeline */
         GstState state; /**< Current state of the pipeline */
+        gboolean fullscreen; /**< Full screen status */
         GstBus* bus; /**< Gstreamer bus */
         gint64 duration; /**< Duration of the clip, in nanoseconds */
     } media;

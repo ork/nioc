@@ -107,6 +107,31 @@ sc_mute(girara_session_t* session, girara_argument_t* GIRARA_UNUSED(argument),
 }
 
 bool
+cmd_fullscreen(girara_session_t* session, girara_list_t* GIRARA_UNUSED(argument_list))
+{
+    g_return_val_if_fail(session != NULL, false);
+    g_return_val_if_fail(session->global.data != NULL, false);
+    nioc_t* nioc = session->global.data;
+
+    if (nioc->media.fullscreen) {
+        gtk_window_unfullscreen(GTK_WINDOW(nioc->ui.session->gtk.window));
+        nioc->media.fullscreen = false;
+    } else {
+        gtk_window_fullscreen(GTK_WINDOW(nioc->ui.session->gtk.window));
+        nioc->media.fullscreen = true;
+    }
+
+    return true;
+}
+
+bool
+sc_fullscreen(girara_session_t* session, girara_argument_t* GIRARA_UNUSED(argument),
+              girara_event_t* GIRARA_UNUSED(event), unsigned int GIRARA_UNUSED(t))
+{
+    return cmd_fullscreen(session, NULL);
+}
+
+bool
 cmd_quit(girara_session_t* session, girara_list_t* GIRARA_UNUSED(argument_list))
 {
     cmd_stop(session, NULL);
