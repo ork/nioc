@@ -25,7 +25,10 @@ nioc_create(void)
 
     /* Media */
     nioc->media.duration = GST_CLOCK_TIME_NONE;
+    g_mutex_init(&nioc->media.lock);
+    g_mutex_lock(&nioc->media.lock);
     nioc->media.playbin = gst_element_factory_make("playbin2", "playbin");
+    g_mutex_unlock(&nioc->media.lock);
 
     if (nioc->media.playbin == NULL) {
         girara_error("Could not initialize gstreamer.");

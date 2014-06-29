@@ -3,6 +3,7 @@
 #include <girara/macros.h>
 #include "types.h"
 
+/* Called when the window is closed */
 void cb_destroy(GtkWidget* widget, nioc_t* nioc);
 
 void realize_cb(GtkWidget* widget, nioc_t* nioc);
