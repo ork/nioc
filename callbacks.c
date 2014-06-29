@@ -7,6 +7,15 @@
 #include "commands.h"
 #include "nioc.h"
 
+void cb_destroy(GtkWidget* GIRARA_UNUSED(widget), nioc_t* nioc)
+{
+    if (nioc != NULL && nioc->ui.session != NULL) {
+        cmd_stop(nioc->ui.session, NULL);
+    }
+
+    gtk_main_quit();
+}
+
 void realize_cb(GtkWidget* widget, nioc_t* nioc)
 {
     GdkWindow* window = gtk_widget_get_window(widget);

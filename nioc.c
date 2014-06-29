@@ -79,7 +79,7 @@ nioc_init(nioc_t* nioc)
     /* signals */
     g_signal_connect(nioc->ui.renderer, "realize", G_CALLBACK(realize_cb), nioc);
     g_signal_connect(nioc->ui.renderer, "draw", G_CALLBACK(draw_cb), nioc);
-    //g_signal_connect(G_OBJECT(nioc->ui.session->gtk.window), "destroy", G_CALLBACK(cb_destroy), nioc);
+    g_signal_connect(G_OBJECT(nioc->ui.session->gtk.window), "destroy", G_CALLBACK(cb_destroy), nioc);
 
     girara_set_view(nioc->ui.session, nioc->ui.renderer);
 
