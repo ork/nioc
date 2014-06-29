@@ -1,0 +1,11 @@
+[High Priority]
+
+* Threading support
+  We currently crash at the first execution of the program.
+  Ugly video artefacts when he hover the window.
+
+[Medium Priority]
+
+* Move to gstreamer 1.0
+* Cleanup and refactor
+
