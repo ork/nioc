@@ -16,23 +16,23 @@ main(int argc, char* argv[])
     gtk_init(&argc, &argv);
     gst_init(&argc, &argv);
 
-    /* create zathura session */
+    /* create nioc session */
     nioc_t* nioc = nioc_create();
     if (nioc == NULL) {
         return -1;
     }
 
-    /* Init zathura */
+    /* Init nioc */
     if (nioc_init(nioc) == false) {
         girara_error("Could not initialize nioc.");
         nioc_free(nioc);
         return -1;
     }
 
-    /* run zathura */
+    /* run nioc */
     gtk_main();
 
-    /* free zathura */
+    /* free nioc */
     nioc_free(nioc);
 
     return 0;
