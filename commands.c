@@ -13,6 +13,35 @@
 #include <girara/datastructures.h>
 #include <girara/utils.h>
 
+static gchar*
+get_uri_from_string(const gchar* path)
+{
+  g_return_val_if_fail(path != NULL, NULL);
+
+  gchar *uri = NULL;
+  gchar *scheme = g_uri_parse_scheme(path);
+
+  if (scheme == NULL) {
+    gchar *tmp = NULL;
+
+    if (g_path_is_absolute(path)) {
+      tmp = g_strdup(path);
+    } else {
+      tmp = g_build_filename(g_get_current_dir(), path, NULL);
+    }
+
+    if (g_file_test(tmp, G_FILE_TEST_EXISTS)) {
+      uri = g_filename_to_uri(tmp, NULL, NULL);
+    }
+
+    g_free(tmp);
+  } else if (g_str_has_prefix(scheme, "http")) {
+    uri = g_strdup(path);
+  }
+
+  return uri;
+}
+
 bool
 cmd_open(girara_session_t* session, girara_list_t* argument_list)
 {
@@ -28,7 +57,8 @@ cmd_open(girara_session_t* session, girara_list_t* argument_list)
         gst_element_set_state(nioc->media.playbin, GST_STATE_READY);
 
         g_object_set(nioc->media.playbin, "uri",
-                     girara_list_nth(argument_list, 0), NULL);
+                     get_uri_from_string(girara_list_nth(argument_list, 0)),
+                     NULL);
         if (gst_element_set_state(nioc->media.playbin, GST_STATE_PLAYING) == GST_STATE_CHANGE_FAILURE) {
             girara_notify(session, GIRARA_ERROR, _("Could not open URI."));
         }
