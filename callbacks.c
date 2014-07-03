@@ -1,3 +1,5 @@
+/* See LICENSE file for license and copyright information */
+
 #include <gst/gst.h>
 #include <gst/interfaces/xoverlay.h>
 #include <gdk/gdkx.h>

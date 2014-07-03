@@ -1,3 +1,5 @@
+/* See LICENSE file for license and copyright information */
+
 #include <girara/types.h>
 #include <gtk/gtk.h>
 #include <girara/macros.h>

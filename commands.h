@@ -1,3 +1,5 @@
+/* See LICENSE file for license and copyright information */
+
 #ifndef COMMANDS_H
 #define COMMANDS_H
 

@@ -16,30 +16,30 @@
 static gchar*
 get_uri_from_string(const gchar* path)
 {
-  g_return_val_if_fail(path != NULL, NULL);
+    g_return_val_if_fail(path != NULL, NULL);
 
-  gchar *uri = NULL;
-  gchar *scheme = g_uri_parse_scheme(path);
+    gchar* uri = NULL;
+    gchar* scheme = g_uri_parse_scheme(path);
 
-  if (scheme == NULL) {
-    gchar *tmp = NULL;
+    if (scheme == NULL) {
+        gchar* tmp = NULL;
 
-    if (g_path_is_absolute(path)) {
-      tmp = g_strdup(path);
-    } else {
-      tmp = g_build_filename(g_get_current_dir(), path, NULL);
+        if (g_path_is_absolute(path)) {
+            tmp = g_strdup(path);
+        } else {
+            tmp = g_build_filename(g_get_current_dir(), path, NULL);
+        }
+
+        if (g_file_test(tmp, G_FILE_TEST_EXISTS)) {
+            uri = g_filename_to_uri(tmp, NULL, NULL);
+        }
+
+        g_free(tmp);
+    } else if (g_str_has_prefix(scheme, "http")) {
+        uri = g_strdup(path);
     }
 
-    if (g_file_test(tmp, G_FILE_TEST_EXISTS)) {
-      uri = g_filename_to_uri(tmp, NULL, NULL);
-    }
-
-    g_free(tmp);
-  } else if (g_str_has_prefix(scheme, "http")) {
-    uri = g_strdup(path);
-  }
-
-  return uri;
+    return uri;
 }
 
 bool
