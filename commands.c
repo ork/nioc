@@ -39,6 +39,7 @@ get_uri_from_string(const gchar* path)
         uri = g_strdup(path);
     }
 
+    g_free(scheme);
     return uri;
 }
 
