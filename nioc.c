@@ -1,4 +1,4 @@
-#include "nioc.h"
+/* See LICENSE file for license and copyright information */
 
 #include <glib/gi18n.h>
 #include <girara/session.h>
@@ -7,6 +7,7 @@
 #include <girara/config.h>
 #include <girara/shortcuts.h>
 #include <girara/settings.h>
+#include "nioc.h"
 #include "commands.h"
 #include "callbacks.h"
 
@@ -63,27 +64,28 @@ nioc_init(nioc_t* nioc)
     gtk_widget_set_double_buffered(nioc->ui.renderer, FALSE);
 
     /* Commands */
-    girara_inputbar_command_add(nioc->ui.session, "open", "o", cmd_open, NULL, _("Open medium"));
+    girara_inputbar_command_add(nioc->ui.session, "open",       "o", cmd_open,       NULL, _("Open medium"));
     girara_inputbar_command_add(nioc->ui.session, "play-pause", "p", cmd_play_pause, NULL, _("Start/Pause/Resume playback"));
-    girara_inputbar_command_add(nioc->ui.session, "stop", "s", cmd_stop, NULL, _("Stop playback"));
-    girara_inputbar_command_add(nioc->ui.session, "mute", "m", cmd_mute, NULL, _("(Un)Mute playback"));
+    girara_inputbar_command_add(nioc->ui.session, "stop",       "s", cmd_stop,       NULL, _("Stop playback"));
+    girara_inputbar_command_add(nioc->ui.session, "mute",       "m", cmd_mute,       NULL, _("(Un)Mute playback"));
     girara_inputbar_command_add(nioc->ui.session, "fullscreen", "f", cmd_fullscreen, NULL, _("Toggle fullscreen"));
 
     /* Shortcuts */
-    girara_shortcut_add(nioc->ui.session, 0, GDK_KEY_p, NULL, sc_play_pause, 0, 0, NULL);
-    girara_shortcut_add(nioc->ui.session, 0, GDK_KEY_s, NULL, sc_stop, 0, 0, NULL);
-    girara_shortcut_add(nioc->ui.session, 0, GDK_KEY_m, NULL, sc_mute, 0, 0, NULL);
-    girara_shortcut_add(nioc->ui.session, 0, GDK_KEY_f, NULL, sc_fullscreen, 0, 0, NULL);
+    girara_shortcut_add(nioc->ui.session, 0, GDK_KEY_p, NULL, sc_play_pause,  0, 0, NULL);
+    girara_shortcut_add(nioc->ui.session, 0, GDK_KEY_s, NULL, sc_stop,        0, 0, NULL);
+    girara_shortcut_add(nioc->ui.session, 0, GDK_KEY_m, NULL, sc_mute,        0, 0, NULL);
+    girara_shortcut_add(nioc->ui.session, 0, GDK_KEY_f, NULL, sc_fullscreen,  0, 0, NULL);
     girara_shortcut_add(nioc->ui.session, 0, GDK_KEY_q, NULL, girara_sc_quit, 0, 0, NULL);
 
     /* Settings */
     girara_setting_set(nioc->ui.session, "window-icon", "totem");
 
-    /* signals */
-    g_signal_connect(nioc->ui.renderer, "realize", G_CALLBACK(realize_cb), nioc);
-    g_signal_connect(nioc->ui.renderer, "draw", G_CALLBACK(draw_cb), nioc);
+    /* Signals */
+    g_signal_connect(nioc->ui.renderer,                      "realize", G_CALLBACK(realize_cb), nioc);
+    g_signal_connect(nioc->ui.renderer,                      "draw",    G_CALLBACK(draw_cb), nioc);
     g_signal_connect(G_OBJECT(nioc->ui.session->gtk.window), "destroy", G_CALLBACK(cb_destroy), nioc);
 
+    /* Show */
     girara_set_view(nioc->ui.session, nioc->ui.renderer);
 
     return true;
